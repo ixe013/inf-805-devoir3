@@ -9,11 +9,14 @@ import dns.resolver
 
 def resolve(domain, record):
     values = set()
-    answers = dns.resolver.resolve(domain, record)
-    for rdata in answers:
-        values.add(rdata.to_text().strip('"'))
+    try:
+        answers = dns.resolver.resolve(domain, record)
+        for rdata in answers:
+            values.add(rdata.to_text().strip('"'))
 
-    return list(values)
+        return list(values)
+    except:
+        return []
 
 
 def find_regex_value_in_records(regex, records):
